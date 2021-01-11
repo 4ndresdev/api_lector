@@ -9,24 +9,30 @@ class Acreditaciones_model extends Model
 {
     public static function get_by_placa($placa = '')
     {
-        $result = DB::table('acreditaciones as a')
-            ->select('a.nombre', 'a.fecha_fin as vigencia', 'a.folio_expediente', 'ea.descripcion as estatus', 'a.placa', 'tc.desc_corta as descripcion')
+        return DB::table('acreditaciones as a')
+            ->select('a.nombre', 'a.id_acreditacion', 'a.fecha_fin as vigencia', 'a.folio_expediente', 'ea.descripcion as estatus', 'a.placa', 'tc.desc_corta as descripcion')
             ->join('cat_estatus_acreditaciones as ea', 'ea.estatus', '=', 'a.estatus_acreditacion')
             ->join('tipo_acreditaciones as tc', 'tc.tipo_acreditacion', '=', 'a.tipo_acreditacion')
             ->where('a.placa', $placa)
             ->first();
-
-        return $result;
     }
 
     public static function get_all()
     {
-        $result = DB::table('acreditaciones as a')
-            ->select('a.nombre', 'a.fecha_fin as vigencia', 'a.folio_expediente', 'ea.descripcion as estatus', 'a.placa', 'tc.desc_corta as descripcion')
+        return DB::table('acreditaciones as a')
+            ->select('a.nombre', 'a.id_acreditacion', 'a.placa2', 'a.placa3', 'a.fecha_fin as vigencia', 'a.folio_expediente', 'ea.descripcion as estatus', 'a.placa', 'tc.desc_corta as descripcion', 'a.nuevo')
             ->join('cat_estatus_acreditaciones as ea', 'ea.estatus', '=', 'a.estatus_acreditacion')
-            ->join('tipo_acreditaciones as tc', 'tc.tipo_acreditacion', '=', 'a.tipo_acreditacion')            
-            ->first();
+            ->join('tipo_acreditaciones as tc', 'tc.tipo_acreditacion', '=', 'a.tipo_acreditacion')
+            ->orderBy('a.id_acreditacion', 'desc')
+            ->where('a.nuevo', 1)
+            ->orWhere('a.nuevo', 2)
+            ->get();
+    }
 
-        return $result;
+    public static function change($id_acreditacion)
+    {
+        return DB::table('acreditaciones')
+            ->where('id_acreditacion', $id_acreditacion)
+            ->update(['nuevo' => 3]);
     }
 }

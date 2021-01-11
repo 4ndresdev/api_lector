@@ -46,7 +46,20 @@ class Acreditaciones extends Controller
                     'status' => 404, 'msg' => 'No hay resultados'
                 ], 404);
             }
+        }
+    }
+
+    public function change(Request $request)
+    {
+
+        if (Acreditaciones_model::change($request->id_acreditacion)) {
+            return response()->json([
+                'status' => 200, 'msg' => 'ok'
+            ], 200);
         } else {
+            return response()->json([
+                'status' => 503, 'msg' => 'No se puedo actualizar el registro'
+            ], 503);
         }
     }
 }
