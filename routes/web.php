@@ -14,6 +14,4 @@
 |
 */
 
-$router->get('/api/acreditaciones/get_all', 'Acreditaciones@get_all');
-$router->post('/api/acreditaciones/get_by_placa', 'Acreditaciones@get_by_placa');
-$router->post('/api/acreditaciones/change', 'Acreditaciones@change');
+$router->post('/api/acreditaciones/get_all', 'acreditaciones@get_all');
