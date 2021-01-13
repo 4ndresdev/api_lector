@@ -15,10 +15,10 @@ class Acreditaciones_model extends Model
                 ->select('a.nombre', 'a.id_acreditacion', 'a.fecha_fin as vigencia', 'a.folio_expediente', 'a.fecha_fin as estatus', 'a.placa', 'tc.desc_corta as descripcion', 'a.nuevo', 'a.fecha_registro')
                 ->join('tipo_acreditaciones as tc', 'tc.tipo_acreditacion', '=', 'a.tipo_acreditacion')
                 ->orderBy('a.fecha_registro', 'asc')
-                ->count();
+                ->get();
         } else {
             return DB::table('acreditaciones as a')
-                ->select('a.nombre', 'a.id_acreditacion', 'a.fecha_fin as vigencia', 'a.folio_expediente', 'ea.descripcion as estatus', 'a.placa', 'tc.desc_corta as descripcion', 'a.nuevo', 'a.fecha_registro')
+                ->select('a.nombre', 'a.id_acreditacion', 'a.fecha_fin as vigencia', 'a.folio_expediente', 'a.fecha_fin as estatus', 'a.placa', 'tc.desc_corta as descripcion', 'a.nuevo', 'a.fecha_registro')
                 ->join('cat_estatus_acreditaciones as ea', 'ea.estatus', '=', 'a.estatus_acreditacion')
                 ->join('tipo_acreditaciones as tc', 'tc.tipo_acreditacion', '=', 'a.tipo_acreditacion')
                 ->orderBy('a.fecha_registro', 'asc')
